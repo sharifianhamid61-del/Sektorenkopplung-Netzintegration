@@ -1,0 +1,31 @@
+BEFORE vs AFTER §14a EnWG
+============================================================
+
+BEFORE CONTROL
+Minimum Voltage (p.u.): 0.9103846873
+Worst Voltage Bus: 16
+Voltage Violation Events: 0
+Voltage Violation Time Steps: 0
+Maximum Line Loading (%): 38.3280257709
+Worst Line: 0
+Line Overload Events: 0
+Line Overload Time Steps: 0
+
+AFTER CONTROL
+Minimum Voltage (p.u.): 0.9241332799
+Worst Voltage Bus: 16
+Voltage Violation Events: 0
+Voltage Violation Time Steps: 0
+Maximum Line Loading (%): 30.253294018
+Worst Line: 0
+Line Overload Events: 0
+Line Overload Time Steps: 0
+
+KPI COMPARISON
+                         KPI  Before §14a  After §14a    Change  Change (%)
+      Minimum Voltage (p.u.)     0.910385    0.924133  0.013749    1.510196
+    Voltage Violation Events     0.000000    0.000000  0.000000         NaN
+Voltage Violation Time Steps     0.000000    0.000000  0.000000         NaN
+    Maximum Line Loading (%)    38.328026   30.253294 -8.074732  -21.067435
+        Line Overload Events     0.000000    0.000000  0.000000         NaN
+    Line Overload Time Steps     0.000000    0.000000  0.000000         NaN

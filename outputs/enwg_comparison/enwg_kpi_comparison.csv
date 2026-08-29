@@ -1,0 +1,7 @@
+KPI,Before §14a,After §14a,Change,Change (%)
+Minimum Voltage (p.u.),0.9103846873,0.9241332799,0.013748592600000054,1.5101959415393227
+Voltage Violation Events,0.0,0.0,0.0,
+Voltage Violation Time Steps,0.0,0.0,0.0,
+Maximum Line Loading (%),38.3280257709,30.253294018,-8.0747317529,-21.06743457428643
+Line Overload Events,0.0,0.0,0.0,
+Line Overload Time Steps,0.0,0.0,0.0,
