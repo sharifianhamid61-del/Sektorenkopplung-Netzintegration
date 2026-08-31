@@ -30,6 +30,14 @@ The framework benchmarks uncontrolled integration scenarios against intelligent 
   * `matplotlib` & `seaborn` — Visualization and report generation
 
 ---
+👨‍💻 Autor
+Hamid Sharifian
+
+M.Sc. Electrical Power Engineer | Experte für Power Grid Analytics & Geospatial Analysis
+
+💼 [LinkedIn Profil](https://linkedin.com/in/hamid-sharifian-4b349052)
+🎓 [Google Scholar](https://scholar.google.com/citations?user=PsIZ3g50uOAAAAJ)
+📧 sharifian.hamid61@gmail.com
 
 ## 📂 Project Structure
 ```text
@@ -74,14 +82,3 @@ pip install -r requirements.txt
 ### 3. Run Time-Series Simulation
 bash
 python src/08_time_series_analysis.py
-
----
-
-👨‍💻 Autor
-Hamid Sharifian
-
-M.Sc. Electrical Power Engineer | Experte für Power Grid Analytics & Geospatial Analysis
-
-💼 [LinkedIn Profil](https://linkedin.com/in/hamid-sharifian-4b349052)
-🎓 [Google Scholar](https://scholar.google.com/citations?user=PsIZ3g50uOAAAAJ)
-📧 sharifian.hamid61@gmail.com
