@@ -1,46 +1,81 @@
-# ⚡ Smart Grid Impact Analysis: Netzintegration von EV, WP & BESS
+# Sektorenkopplung & Smart Grid Integration (§14a EnWG)
 
-[![Python](https://img.shields.io/badge/Python-3.8%2B-blue.svg)](https://www.python.org/)
-[![pandapower](https://img.shields.io/badge/pandapower-2.13%2B-green.svg)](https://pandapower.readthedocs.io/)
+[![Python 3.10+](https://img.shields.io/badge/Python-3.10%2B-blue.svg)](https://www.python.org/)
+[![pandapower](https://img.shields.io/badge/Power_System-pandapower-orange.svg)](https://www.pandapower.org/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-## 📌 Projektbeschreibung
-Dieses Projekt bietet eine umfassende simulationsbasierte Analyse der Auswirkungen moderner Lasten und Prosumer-Technologien auf das elektrische Verteilnetz (Niederspannung). Der Fokus liegt auf der **Sektorenkopplung** und der Untersuchung von Netzengpässen durch den Hochlauf von Elektromobilität (EV) und Wärmepumpen (WP) sowie der **netzdienlichen Integration** von Photovoltaik (PV) und Batteriespeichersystemen (BESS) durch Home Energy Management Systems (HEMS) gemäß §14a EnWG.
+## 📌 Project Overview
+This repository provides a complete quasi-dynamic time-series simulation framework for low-voltage (LV) and medium-voltage (MV) distribution networks integrating sector coupling technologies: **Photovoltaic (PV) systems, Battery Energy Storage Systems (BESS), Electric Vehicle (EV) chargers, and Heat Pumps (HP)**.
 
-Das Projekt wurde mit der Open-Source-Bibliothek `pandapower` in Python entwickelt.
+The framework benchmarks uncontrolled integration scenarios against intelligent flexibility management under the German regulatory framework (**§14a EnWG**), resolving grid bottlenecks (thermal line overloading and voltage band violations).
 
-## 📁 Projektstruktur (Repository Structure)
-Um eine saubere Trennung von Code und Ergebnissen zu gewährleisten, ist das Repository wie folgt aufgebaut:
-- `src/` : Enthält alle ausführbaren Python-Skripte für die Simulationen.
-- `outputs/` : Enthält alle generierten Diagramme, Plots und Analyseergebnisse.
+---
 
-## 🎯 Hauptmerkmale (Key Features)
-- **Szenariobasierte Lastflussberechnung (Time Series Analysis):** Simulation von 24-Stunden-Profilen für Basislasten, EV-Ladevorgänge und Wärmepumpen.
-- **Entkoppelte Analyse (Decoupled Analysis):** Isolierte Betrachtung der Spannungsabfälle, um den genauen Einfluss einzelner Technologien (z. B. der 11-kW-EV-Ladung vs. 3-kW-Wärmepumpe) zu quantifizieren.
-- **PV & BESS Integration (Smart Prosumers):** Implementierung einer HEMS-Logik zur Netzentlastung:
-  - *Überschussladen:* Vermeidung von Überspannung am Mittag durch Einspeicherung der PV-Spitze.
-  - *Lastspitzenkappung (Peak Shaving):* Vermeidung von Unterspannung und Transformatorüberlastung in den Abendstunden durch BESS-Entladung.
+## 🚀 Key Features
 
-## 📊 Ergebnisse & Visualisierung
-Die Simulationen zeigen deutlich, wie ungesteuerte EV-Ladevorgänge in den Abendstunden zu kritischen Spannungsabfällen (unter 0,85 p.u.) und Transformatorüberlastungen führen können. Durch die netzdienliche Integration (§14a EnWG & BESS) werden diese Netzengpässe effektiv eliminiert.
+* **Quasi-Dynamic Time-Series Power Flow:** 24-hour simulation with 15-minute resolution (96 time steps) using `pandapower`.
+* **Sector Coupling Assets:** Dynamic modelling of simultaneous residential loads, EV home charging ($11\,\text{kW}$), Heat Pump thermal cycles, and distributed rooftop PV generation.
+* **§14a EnWG Flexibility Management:** Implementation of smart curtailment and peak-shaving dimming algorithms for controllable consumption units (*SteuVE*).
+* **Grid Impact & Bottleneck Analysis:** Automated evaluation of line loading rates ($\%$) and nodal voltage profiles ($U/U_n$).
+* **Visual Performance Reporting:** Comparative Before/After plots highlighting grid relief and capacity optimization.
 
-*Vergleich: Ungesteuertes Laden (H1) vs. Gesteuertes Laden nach §14a (H2)*
-![H1 vs H2 Comparison](outputs/H1_vs_H2_Comparison.png)
+---
 
-*(Weitere Diagramme und detaillierte Auswertungen wie `PV_BESS_Integration.png` oder `EV_vs_HP_Impact.png` finden Sie im Ordner `outputs/`)*
+## 🛠️ Tech Stack & Dependencies
 
-## 🛠️ Technologien & Stack
-- **Programmiersprache:** Python
-- **Netzsimulation:** `pandapower`, `networkx`
-- **Datenverarbeitung:** `pandas`, `numpy`
-- **Visualisierung:** `matplotlib`, `seaborn`
+* **Language:** Python 3.10+
+* **Core Libraries:**
+  * `pandapower` — Power system load flow and time-series analysis
+  * `pandas` & `numpy` — Profile synthesis and data manipulation
+  * `matplotlib` & `seaborn` — Visualization and report generation
 
-## 🚀 Installation & Nutzung
+---
 
-1. **Repository klonen:**
+## 📂 Project Structure
+```text
+├── data/
+│   ├── load_profiles/         # Synthesized standard & dynamic profiles (H0, P_EV, P_HP, PV)
+│   └── grid_models/           # Benchmark grid topology / pandapower JSON models
+├── src/
+│   ├── 01_grid_builder.py     # Grid topology definition
+│   ├── 04_bess_strategy.py    # Battery storage control logic
+│   ├── 08_time_series_analysis.py # 24h quasi-dynamic simulation & §14a EnWG logic
+│   └── utils_plot.py          # Visualization utilities
+├── results/
+│   ├── voltage_profiles.png   # Voltage band comparison (Uncontrolled vs Controlled)
+│   └── line_loading.png       # Thermal line capacity comparison
+├── README.md
+├── requirements.txt
+└── LICENSE
 
-   git clone https://github.com/sharifianhamid61-del/Sektorenkopplung-Netzintegration
-   cd SmartGrid-Impact-Analysis
+---
+
+## 📊 Methodology & Workflow
+
+1. **Baseline Load Profile Synthesis:** Modeling synchronous peak demands (e.g., evening residential demand + simultaneous EV charging at 19:45).
+2. **Uncontrolled Scenario ($H_1$):** Demonstrating voltage drop violations ($U < 0.90\,\text{p.u.}$) and feeder line overload ($> 100\,\%$) under high penetration.
+3. **Flexibility Activation ($H_2$ under §14a EnWG):** Dynamic load throttling of controllable units to preserve grid stability without unnecessary energy curtailment.
+
+---
+
+## ⚡ Quick Start
+
+### 1. Clone the Repository
+bash
+git clone https://github.com/sharifianhamid61-del/Sektorenkopplung-Netzintegration.git
+cd Sektorenkopplung-Netzintegration
+
+### 2. Set Up Virtual Environment
+bash
+python -m venv venv
+source venv/bin/activate  # On Windows: venv\Scripts\activate
+pip install -r requirements.txt
+
+### 3. Run Time-Series Simulation
+bash
+python src/08_time_series_analysis.py
+
+---
 
 👨‍💻 Autor
 Hamid Sharifian
